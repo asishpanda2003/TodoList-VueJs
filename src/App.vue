@@ -5,7 +5,7 @@ const todos = ref([]);
 const name = ref("");
 const input_content = ref("");
 const inpput_category = ref(null);
-const filterCategory = ref("All"); // For dropdown filter
+const filterCategory = ref("All");
 
 const todo_asc = computed(() =>
   todos.value.sort((a, b) => b.createdAt - a.createdAt)
@@ -32,13 +32,13 @@ const addTodo = () => {
     createdAt: new Date().getTime(),
   });
   input_content.value = "";
-  inpput_category.value = null; // Reset category selection
+  inpput_category.value = null;
 };
 
 const getCategoryColor = (category) => {
-  if (category === "Business") return "#17a2b8"; // Info color
-  if (category === "Personal") return "#ffc107"; // Warning color
-  return "#6c757d"; // Default gray color
+  if (category === "Business") return "#17a2b8";
+  if (category === "Personal") return "#ffc107";
+  return "#6c757d";
 };
 
 const removeTodo = (todo) => {
@@ -65,7 +65,6 @@ onMounted(() => {
 
 <template>
   <main class="container py-4">
-    <!-- Greeting Section -->
     <section class="text-center mb-4">
       <h2 class="mb-3">
         What's up,
@@ -78,7 +77,6 @@ onMounted(() => {
       </h2>
     </section>
 
-    <!-- Create To-Do Section -->
     <section class="bg-white p-4 rounded shadow mb-4">
       <h3 class="text-primary mb-3">CREATE A TODO</h3>
       <form @submit.prevent="addTodo">
@@ -132,7 +130,6 @@ onMounted(() => {
       </form>
     </section>
 
-    <!-- To-Do List Section -->
     <section class="bg-white p-4 rounded shadow">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="text-primary">TODO LIST</h3>
@@ -149,7 +146,6 @@ onMounted(() => {
           class="d-flex align-items-center mb-3 p-3 rounded shadow"
           :class="{ 'bg-light text-muted': todo.done }"
         >
-          <!-- Checkbox -->
           <label class="me-3">
             <input
               type="checkbox"
@@ -157,8 +153,6 @@ onMounted(() => {
               v-model="todo.done"
             />
           </label>
-
-          <!-- Category Color Indicator -->
           <div
             class="rounded-circle me-3"
             :style="{
@@ -167,8 +161,6 @@ onMounted(() => {
               backgroundColor: getCategoryColor(todo.category),
             }"
           ></div>
-
-          <!-- Todo Content -->
           <div class="flex-grow-1">
             <div class="d-flex flex-column">
               <template v-if="todo.done">
@@ -183,8 +175,6 @@ onMounted(() => {
               </template>
             </div>
           </div>
-
-          <!-- Delete Button -->
           <button class="btn btn-danger btn-sm ms-3" @click="removeTodo(todo)">
             Delete
           </button>
